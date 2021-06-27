@@ -1,7 +1,7 @@
 LobbySpy
 
 Simple little tool I made to show who's in a Heroes of Hammerwatch Lobby without having to join. 
-you need galaxy debug logs enabled for this to work, to do that, create a file called `GalaxyPeer.ini` inside your Heroes of Hammerwatch Game folder and put the following in it:
+Alongside having this in your game folder, you need galaxy debug logs enabled for this to work, to do that, create a file called `GalaxyPeer.ini` inside your Heroes of Hammerwatch Game folder and put the following in it:
 
 ```
 # LOCAL GALAXY PEER CONFIG
