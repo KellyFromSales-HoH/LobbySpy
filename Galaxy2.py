@@ -4,14 +4,6 @@ import time
 import os
 
 data=[]
-
-textfile = open("GalaxyPeer.log", 'r')
-filetext = textfile.read()
-filetext = filetext.replace("\r", "").replace("\n", "")
-textfile.close()
-pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}')
-matches = pattern.findall(filetext)
-again = 'yes'
 cachedstamp = 0
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 my_file = os.path.join(THIS_FOLDER, 'GalaxyPeer.log')
@@ -27,7 +19,6 @@ try:
 			textfile.close()
 			pattern = regex.compile(r'\{(?:[^{}]|(?R))*\}')
 			matches = pattern.findall(filetext)
-			again = 'yes'
 			for p in reversed(matches):
 				ob = json.loads(p)
 				if 'items' in ob:
