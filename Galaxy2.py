@@ -3,6 +3,17 @@ import json
 import time
 import os
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 data=[]
 cachedstamp = 0
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
@@ -23,17 +34,25 @@ try:
 				ob = json.loads(p)
 				if 'items' in ob:
 					for d in ob['items']:
-						print d['matchmaking']['name']
-						if 'ngp' in d['matchmaking']:
-							print('ngp ='),
-							print d['matchmaking']['ngp']
-						print('number of players = '),
-						print len(d['members'])
-						if 'members' in d:
-							for e in d['members']:
-								if 'properties' in e:
-									print e['properties']['name']
-							print('')
+						if 'matchmaking' in d:
+							print(bcolors.WARNING + d['matchmaking']['name'] + bcolors.ENDC)
+							print(bcolors.OKGREEN +'b' + d['matchmaking']['game-version'] + bcolors.ENDC)
+							if 'mods' in d['matchmaking']:
+								print('mods:')
+								print(bcolors.HEADER + d['matchmaking']['mods'] + bcolors.ENDC)
+							if 'mods-hash' in d['matchmaking']:
+								if d['matchmaking']['mods-hash'] != "0":
+									print(bcolors.FAIL + 'mods-hash:' + d['matchmaking']['mods-hash'] + bcolors.ENDC)
+							if 'ngp' in d['matchmaking']:
+								print('ng' +d['matchmaking']['ngp'])
+							print('players = '+str(len(d['members']))+"/"+str(d['player_max_count']))
+							if 'members' in d:
+								for e in d['members']:
+									if 'properties' in e:
+										print(bcolors.OKCYAN + e['properties']['name'] + bcolors.ENDC)
+								print('')
+						else:
+							print('no matchmaking array found!')
 					print("----------------")
 					break
 except KeyboardInterrupt:
